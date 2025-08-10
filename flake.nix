@@ -35,8 +35,7 @@
       modules = [
         nixvim.nixosModules.nixvim
         #disko.nixosModules.disko
-        ./hosts/hamburger/configuration.nix
-        ./modules
+        (import ./hosts/hamburger/configuration.nix)
         {
           _module.args.nixinate = {
             host = "5.161.77.151";
