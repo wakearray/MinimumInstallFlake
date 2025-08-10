@@ -20,11 +20,11 @@
     ...
   }:
   {
-    nixosConfigurations.hamburger = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.Hamburger = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         nixvim.nixosModules.nixvim
-        disko.nixosModules.disko
+        #disko.nixosModules.disko
         ./hosts/hamburger/configuration.nix
         ./modules
       ];
