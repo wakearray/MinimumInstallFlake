@@ -39,7 +39,6 @@
     };
 
     nix.settings.trusted-users = [ "kent" ];
-    gui._1pass.polkitPolicyOwners = [ "kent" ];
 
     services.openssh.enable = true;
 
