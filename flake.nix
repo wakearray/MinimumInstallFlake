@@ -15,9 +15,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-
-    # Automated deployment scripts
-    nixinate.url = "github:matthewcroughan/nixinate";
   };
 
   outputs = {
@@ -25,26 +22,15 @@
     nixpkgs,
     disko,
     nixvim,
-    nixinate,
     ...
   }:
   {
-    apps = nixinate.nixinate.x86_64-linux self;
     nixosConfigurations.Hamburger = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
+        ./hosts/hamburger/configuration.nix
         nixvim.nixosModules.nixvim
         #disko.nixosModules.disko
-        (import ./hosts/hamburger/configuration.nix)
-        {
-          _module.args.nixinate = {
-            host = "5.161.77.151";
-            sshUser = "nixos";
-            buildOn = "local"; # valid args are "local" or "remote"
-            substituteOnTarget = true; # if buildOn is "local" then it will substitute on the target, "-s"
-            hermetic = true;
-          };
-        }
       ];
     };
     # Use this for all other targets
