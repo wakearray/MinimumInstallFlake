@@ -3,10 +3,6 @@
   # Set zsh as the default user shell.
   users.defaultUserShell = pkgs.zsh;
 
-  environment.systemPackages = with pkgs; [
-    zsh-nix-shell
-  ];
-
   # Turn on zsh.
   programs.zsh = {
     enable = true;
@@ -29,11 +25,8 @@
     ];
     shellAliases = {
       # use exa instead of ls.
-      l = "eza -la --tree --color=always --color-scale=all --color-scale-mode=fixed --icons=always --group-directories-first --git-ignore --level=1";
+      l = "ls -lAh";
       c = "clear";
-      # use zoxide instead of cd.
-      cd = "z";
-      cdi = "zi";
 
       kcp = "killCurrentSessionSpawn";
     };
@@ -68,15 +61,6 @@
         else
           mkdir ''$1 && cd ''$1
         fi
-      }
-
-      function yy() {
-        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-        yazi "$@" --cwd-file="$tmp"
-        if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-          builtin cd -- "$cwd"
-        fi
-        rm -f -- "$tmp"
       }
 
       eval "''$(zoxide init zsh)"
